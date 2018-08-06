@@ -66,7 +66,7 @@ Route::get('/', function () {
 // });
 
 // 路由关联控制器，控制器输出视图
-Route::get('test/info', 'TestController@info');
+// Route::get('test/info', 'TestController@info');
 // Route::get('test/info', ['uses' => 'TestController@info']);
 // Route::any('test/info', [
     // 'uses' => 'TestController@info',
@@ -77,3 +77,6 @@ Route::get('test/info', 'TestController@info');
 //     'test/info/{id}', 
 //     'TestController@info'
 // )->where('id', '[0-9]+');  // 请求参数正则匹配
+
+// 数据库操作之DB facade
+// Route::get('test-db-facade1', ['uses' => 'StudentController@test1']);
