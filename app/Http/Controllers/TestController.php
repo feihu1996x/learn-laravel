@@ -9,6 +9,8 @@
 
 namespace App\Http\Controllers;
 
+use App\TestModel;
+
 class TestController extends Controller{
     // public function info(){
     //     return '自定义控制器';
@@ -28,10 +30,13 @@ class TestController extends Controller{
     // public function info(){
     //     return view('test/info');  // 路由中输出视图(含目录)
     // }         
-    public function info(){  // 向blade模板文件传递参数
-        return view('test/info-blade', [
-            "name" => "feihu1996",
-            "age" => 18
-        ]);
-    }
+    // public function info(){  // 向blade模板文件传递参数
+    //     return view('test/info-blade', [
+    //         "name" => "feihu1996",
+    //         "age" => 18
+    //     ]);
+    // }
+        public function info(){  // 控制器关联模型
+            return TestModel::getTestInfo();
+        }
 }
