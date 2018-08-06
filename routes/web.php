@@ -65,15 +65,15 @@ Route::get('/', function () {
 //     return view('welcome');
 // });
 
-// 路由关联控制器
-// Route::get('test/info', 'TestController@info');
+// 路由关联控制器，控制器输出视图
+Route::get('test/info', 'TestController@info');
 // Route::get('test/info', ['uses' => 'TestController@info']);
 // Route::any('test/info', [
     // 'uses' => 'TestController@info',
     // 'as' => 'test-info'  // 为路由起别名
 // ]);
 // Route::get('test/info/{id}', 'TestController@info');  // 请求参数绑定
-Route::get(
-    'test/info/{id}', 
-    'TestController@info'
-)->where('id', '[0-9]+');  // 请求参数正则匹配
+// Route::get(
+//     'test/info/{id}', 
+//     'TestController@info'
+// )->where('id', '[0-9]+');  // 请求参数正则匹配
