@@ -1,7 +1,7 @@
 <?php
 /*
 * @file:  StudentController.php
-* @brief:  学生控制器
+* @brief:  数据库操作之查询构造器
 * @author: feihu1996.cn
 * @date:  下午16:46 18-08-06
 * @version: 1.0
