@@ -101,6 +101,89 @@ class StudentController extends Controller {
         $update_nums = DB::table("students")
             ->where('id', 15)
             ->decrement("age", 3, ["name" => "younger lanjie"]); 
-        dd($update_nums);                            
+        // dd($update_nums);
+
+        // 查询：成功，返回表中所有记录组成的数组
+        $select_students = DB::table("students")->get();
+        // dd($select_students);
+
+        // 查询: 成功, 返回结果集中的第一条数据构成的数组
+        $select_students = DB::table("students")
+            ->orderBy("id", "desc")
+            ->first();
+        // dd($select_students);
+
+        // 查询: 成功, 返回符合where条件子句的结果集组成的数组
+        $select_students = DB::table("students")
+            ->where("id", ">=", "1")
+            ->get();
+        // dd($select_students);
+
+        // 查询: 成功, 返回符合where条件子句(多重条件)的结果集组成的数组
+        $select_students = DB::table("students")
+            ->whereRaw("id >= ? and age > ?", [1,0])
+            ->get();
+        // dd($select_students);
+
+        // 查询: 成功, 返回只包含指定字段(单个字段)的结果集组成的数组
+        $select_students = DB::table("students")
+            ->pluck("name");
+        // dd($select_students);   
+
+        // 查询: 成功, 返回只包含指定字段(多个字段)的结果集组成的数组
+        $select_students = DB::table("students")
+            ->select("name", "id", "age")
+            ->get();
+        // dd($select_students);           
+
+        // 查询: 成功, 分批次返回结果集组成的数组
+        // 每次查询2条记录
+        DB::table("students")->orderBy('id')->chunk(2,function($select_students){
+            foreach($select_students as $select_student){
+                // 可以设定查询退出条件，当达到该条件时，查询退出，不再往下执行
+                // if($select_student->name=='lanjie')
+                    // return false;
+                $name = $select_student->name.'<br>';
+                // echo $name;
+            }
+        });
+        
+        // 查询: 成功, 返回只包含指定字段的结果集组成的数组
+        // lists的第二个参数将结果集数组的下标指定为特定的字段值
+        // $select_students = DB::table("students")
+            // ->lists("name", "id");
+        // dd($select_students);           
+
+        // 聚合函数count(): 统计表中的记录数
+        $item_nums =DB::table("students")->count();
+        // dd($item_nums);
+
+        // 聚合函数count(): 统计表中的所有记录的age字段的最大值\最小值\平均值\和
+        $age_max =DB::table("students")->max("age");
+        $age_min =DB::table("students")->min("age");
+        $age_avg =DB::table("students")->avg("age");
+        $age_sum =DB::table("students")->sum("age");
+        dd([
+            "age_max" => $age_max,
+            "age_min" => $age_min,
+            "age_avg" => $age_avg,
+            "age_sum" => $age_sum,
+        ]);
+
+        // 删除: 删除成功, 返回受影响的行的数量
+        // 删除students表中id字段为5的记录
+        $delete_nums = DB::table("students")
+            ->where('id', 15)
+            ->delete();
+
+        // 删除: 删除成功, 返回受影响的行的数量
+        // 删除students表中id字段值大于等于15的记录
+        $delete_nums = DB::table("students")
+            ->where('id', '>=',15)
+            ->delete();
+        // dd($delete_nums);
+
+        // 删除：清空数据表
+        DB::table("students")->truncate();
     }
 }
