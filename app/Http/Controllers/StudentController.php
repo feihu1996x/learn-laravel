@@ -11,6 +11,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Student;
+
 class StudentController extends Controller {
     public function test_db_facade(){
         /*
@@ -115,7 +117,7 @@ class StudentController extends Controller {
 
         // 查询: 成功, 返回符合where条件子句的结果集组成的数组
         $select_students = DB::table("students")
-            ->where("id", ">=", "1")
+            ->where("id", ">=", 1)
             ->get();
         // dd($select_students);
 
@@ -158,7 +160,7 @@ class StudentController extends Controller {
         $item_nums =DB::table("students")->count();
         // dd($item_nums);
 
-        // 聚合函数count(): 统计表中的所有记录的age字段的最大值\最小值\平均值\和
+        // 聚合函数: 统计表中的所有记录的age字段的最大值\最小值\平均值\和
         $age_max =DB::table("students")->max("age");
         $age_min =DB::table("students")->min("age");
         $age_avg =DB::table("students")->avg("age");
@@ -185,5 +187,113 @@ class StudentController extends Controller {
 
         // 删除：清空数据表
         DB::table("students")->truncate();
+    }
+
+    public function test_eloquent_orm() {
+        /*
+            数据库操作之Eloquent ORM
+        */
+
+        // 查询(all()/get()):  获取所有记录对象
+        $students = Student::all();
+        $students = Student::get();
+        // dd($students);
+
+        // 查询(find()/where()):  查询符合条件的记录对象
+        // 条件为id=10
+        $students = Student::find("10");
+        // $students = Student::where("id", ">", 5)
+            // ->orderBy("age", "desc")
+            // ->first();
+        // dd($students->name);
+
+        // 查询(findOrFail()):  查询符合条件的记录对象
+        // 条件为id=11
+        //  查询失败会抛出404异常
+        // $students = Student::findOrFail("11");
+        // dd($students);        
+
+        // 查询(chunk()): 分批次查询
+        // 每批查两条记录
+        // echo "<pre>";
+        // Student::chunk(2, function($students){
+        //     var_dump($students);
+        // });
+        // echo "</pre>";
+
+        // 聚合函数count(): 统计表中的记录数
+        $student_nums = Student::count();
+        dd($student_nums);
+
+         // 聚合函数: 统计表中的所有记录的age字段的最大值\最小值\平均值\和
+         $age_max = Student::where("id", ">=", 5)->max("age");
+         $age_min = Student::where("id", ">=", 5)->min("age");
+         $age_avg = Student::where("id", ">=", 5)->avg("age");
+         $age_sum = Student::where("id", ">=", 5)->sum("age");
+        //  dd([
+        //     "age_max" => $age_max,
+        //     "age_min" => $age_min,
+        //     "age_avg" => $age_avg,
+        //     "age_sum" => $age_sum,
+        // ]);
+
+        // 新增数据：使用模型对象
+        $student = new Student();
+        $student->name = "lanjie";
+        $student->age = 22;
+        $student->save();  // 保存成功，返回true
+        // dd($student);
+
+        // 新增数据: 使用模型的create方法(批量赋值)
+        // 返回新增的记录对象
+        $student = Student::create(
+            ["name" => "lanjie", "age" => 18]
+        );
+        // dd($student);
+
+        // 新增数据: 先根据条件查询,若没有找到,则新增记录
+        // 返回对应的记录对象
+        $student = Student::firstOrCreate(
+            ["name" => "lanjielanjie"]
+        );
+        // dd($student);
+
+        //  新增数据: 先根据条件查询,若没有找到,则创建模型对象
+        // 需要手动新增记录
+        // 返回对应的模型对象
+        $student = Student::firstOrNew(
+            ["name" => "lanjielanjielanjielanjielanjie"]
+        );
+        $student->save();
+        // dd($student);
+
+        // 修改数据: 通过模型更新
+        $student = Student::find(18);
+        $student->name = "lanjie~";
+        $res = $student->save();
+        // dd($res);
+
+        // 修改数据: 结合查询语句批量更新
+        // 返回受影响的行的数量
+        $update_nums = Student::where("id", ">=", "1")->update(
+            ["age" => 18]
+        );
+        // dd($update_nums);
+
+        // 删除数据: 通过模型删除
+        $student = Student::find(18);
+        $res = $student->delete();
+        // dd($res);
+
+        // 删除数据: 通过主键值删除
+        // 返回受影响的行的数量
+        // $delete_nums = Student::destroy(19);
+        // $delete_nums = Student::destroy(19,20);
+        $delete_nums = Student::destroy([19,20]);
+        // dd($delete_nums);
+
+        // 删除数据: 按照条件删除
+        $delete_nums = Student::where("age", "=", 18)->delete();
+        // dd($delete_nums);
     }
 }

@@ -83,3 +83,6 @@ Route::get('test-db-facade', ['uses' => 'StudentController@test_db_facade']);
 
 // 数据库操作之查询构造器
 Route::get('test-query-builder', ['uses' => 'StudentController@test_query_builder']);
+
+// 数据库操作之Eloquent ORM
+Route::get('test_eloquent_orm', ['uses' => 'StudentController@test_eloquent_orm']);
