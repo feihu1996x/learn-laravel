@@ -296,4 +296,18 @@ class StudentController extends Controller {
         $delete_nums = Student::where("age", "=", 18)->delete();
         // dd($delete_nums);
     }
+
+    public function test_blade_inherit() {
+        /*
+            Blade模板引擎之模板继承
+        */
+        $hint = "hello, blade template.";
+        $arr = ["ahaa", "hahah"];
+        $message = 'ansdasaos';
+        return view('student.section1', [
+            "hint" => $hint,
+            "arr" => $arr,
+            "message" => $message
+        ]);
+    }
 }
