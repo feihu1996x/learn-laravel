@@ -93,4 +93,19 @@
     @endforelse
     </p>
     </p>
+    <hr>
+    <p>
+    <h1>Blade模板引擎url之url(router别名)</h1>
+    <a href="{{url('test_blade_engine')}}">switch to test_blade_engine</a> <br>
+    </p>
+    <hr>
+    <p>
+    <h1>Blade模板引擎url之action(controller@function)</h1>
+    <a href="{{ action('StudentController@test_blade_engine') }}">switch to test_blade_engine</a> <br>
+    </p>
+    <hr>
+    <p>
+    <h1>Blade模板引擎url之route(路由别名)</h1>
+    <a href="{{ route('test_blade_engine') }}">switch to test_blade_engine</a> <br>
+    </p>
 @endsection

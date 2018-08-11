@@ -88,4 +88,4 @@ Route::get('test-query-builder', ['uses' => 'StudentController@test_query_builde
 Route::get('test_eloquent_orm', ['uses' => 'StudentController@test_eloquent_orm']);
 
 // Blade模板引擎
-Route::get('test_blade_engine', ['uses' => 'StudentController@test_blade_engine']);
+Route::get('test_blade_engine', ['as' => 'test_blade_engine', 'uses' => 'StudentController@test_blade_engine']);
