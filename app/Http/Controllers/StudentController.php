@@ -297,17 +297,21 @@ class StudentController extends Controller {
         // dd($delete_nums);
     }
 
-    public function test_blade_inherit() {
+    public function test_blade_engine() {
         /*
-            Blade模板引擎之模板继承
+            Blade模板引擎
         */
         $hint = "hello, blade template.";
         $arr = ["ahaa", "hahah"];
         $message = 'ansdasaos';
+        $name = "feihu1996x";
+        $students = Student::all();
         return view('student.section1', [
             "hint" => $hint,
             "arr" => $arr,
-            "message" => $message
+            "message" => $message,
+            "name" => $name,
+            "students" => $students
         ]);
     }
 }

@@ -87,5 +87,5 @@ Route::get('test-query-builder', ['uses' => 'StudentController@test_query_builde
 // 数据库操作之Eloquent ORM
 Route::get('test_eloquent_orm', ['uses' => 'StudentController@test_eloquent_orm']);
 
-// Blade模板引擎之模板继承
-Route::get('test_blade_inherit', ['uses' => 'StudentController@test_blade_inherit']);
+// Blade模板引擎
+Route::get('test_blade_engine', ['uses' => 'StudentController@test_blade_engine']);

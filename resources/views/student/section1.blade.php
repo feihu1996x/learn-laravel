@@ -45,4 +45,52 @@
             'message' => $message,
         ])
     </p>
+    <p>
+    <h1>模板语法流程控制之if</h1>
+    @if ($name == "feihu1996x")
+            I am {{$name}}
+    @elseif ($name == "lanjie")
+            I am lanjie
+    @else
+            Who am i?
+    @endif
+    <br>
+    @if (in_array($name, $arr))
+            true
+    @else
+            false
+    @endif
+    </p>
+    <hr>
+    <p>
+    <h1>模板语法流程控制之unless</h1>
+    @unless($name != "feihu1996x")
+        I am {{$name}}
+    @endunless
+    <br>
+    </p>
+    <hr>
+    <p>
+    <h1>模板语法流程控制之for</h1>
+    @for($i=0;$i<10;$i++)
+            {{$i}}<br>
+    @endfor
+    </p>
+    <hr>
+    <p>
+    <h1>模板语法流程控制之foreach</h1>
+    @foreach($students as $student)
+            {{$student->name}} <br>
+    @endforeach
+    </p>
+    <hr>
+    <p>
+    <h1>模板语法流程控制之forelse</h1>
+    @forelse($students as $student)
+            {{$student->name}} <br>
+    @empty
+            没有数据阿 <br>
+    @endforelse
+    </p>
+    </p>
 @endsection
